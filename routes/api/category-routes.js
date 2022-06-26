@@ -5,27 +5,31 @@ const { Category, Product } = require("../../models");
 
 router.get("/", (req, res) => {
   // find all categories
-  // be sure to include its associated Products
-  // TO DO - need to associate to products
   Category.findAll({
+    // be sure to include its associated Products
     include: [Product],
   })
     .then((categories) => res.status(200).json(categories))
-    .catch((err) => res.status(500).json(err));
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 });
 
 router.get("/:id", (req, res) => {
   // find one category by its `id` value
-  // be sure to include its associated Products
-  // TO DO - need to associate to tags
   Category.findOne({
     where: {
       id: req.params.id,
     },
+    // be sure to include its associated Products
     include: [Product],
   })
     .then((category) => res.status(200).json(category))
-    .catch((err) => res.status(400).json(err));
+    .catch((err) => {
+      console.log(err);
+      res.status(400).json(err);
+    });
 });
 
 // post route
@@ -33,7 +37,10 @@ router.post("/", (req, res) => {
   // create a new category
   Category.create(req.body)
     .then((category) => res.status(200).json(category))
-    .catch((err) => res.status(500).json(err));
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 });
 
 // update id
@@ -45,10 +52,13 @@ router.put("/:id", (req, res) => {
     },
   })
     .then((category) => res.status(200).json(category))
-    .catch((err) => res.status(400).json(err));
+    .catch((err) => {
+      console.log(err);
+      res.status(400).json(err);
+    });
 });
 
-// delete id
+// delete route
 router.delete("/:id", (req, res) => {
   // delete a category by its `id` value
   Category.destroy({
@@ -57,7 +67,10 @@ router.delete("/:id", (req, res) => {
     },
   })
     .then((category) => res.status(200).json(category))
-    .catch((err) => res.status(400).json(err));
+    .catch((err) => {
+      console.log(err);
+      res.status(400).json(err);
+    });
 });
 
 module.exports = router;
