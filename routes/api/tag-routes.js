@@ -5,36 +5,78 @@ const { Tag, Product, ProductTag } = require("../../models");
 
 router.get("/", (req, res) => {
   // find all tags
-  // be sure to include its associated Product data
+  Tag.findAll({
+    // be sure to include its associated Product data
+    include: [
+      {
+        model: Product,
+        through: ProductTag,
+        as: "products",
+      },
+    ],
+  })
+    .then((tag) => res.status(200).json(tag))
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 });
 
 router.get("/:id", (req, res) => {
   // find a single tag by its `id`
-  // be sure to include its associated Product data
+  Tag.findOne({
+    where: {
+      id: req.params.id,
+    },
+    include: [
+      {
+        model: Product,
+        through: ProductTag,
+        as: "products",
+      },
+    ],
+  })
+    .then((products) => res.status(200).json(products))
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 });
 
-// TO DO - need to associate to products
 router.post("/", (req, res) => {
   // create a new category
   Tag.create(req.body)
     .then((tag) => res.status(200).json(tag))
-    .catch((err) => res.status(500).json(err));
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 });
 
 // update id
 router.put("/:id", (req, res) => {
   // update a tag's name by its `id` value
+  Tag.update(req.body, {
+    where: {
+      id: req.params.id,
+    },
+  })
+    .then((tag) => res.status(200).json(tag))
+    .catch((err) => {
+      console.log(err);
+      res.status(400).json(err);
+    });
 });
 
 // delete id
 router.delete("/:id", (req, res) => {
   // delete a category by its `id` value - completed
-  Category.destroy({
+  Tag.destroy({
     where: {
       id: req.params.id,
     },
   })
-    .then((category) => res.status(200).json(category))
+    .then((tag) => res.status(200).json(tag))
     .catch((err) => res.status(400).json(err));
 });
 

@@ -80,7 +80,6 @@ router.post("/", (req, res) => {
     });
 });
 
-// update product - completed
 router.put("/:id", (req, res) => {
   // update product data
   Product.update(req.body, {
