@@ -44,6 +44,7 @@
   Test will need run thru Insomnia, the video below will show all successful testing.
   
   ## Video
+  * Opening Database, run Schema file, and drop seeds: https://vimeo.com/725043500
   * Products Video: https://vimeo.com/724656429/c1fccdb65e
   * Categories Video: https://vimeo.com/724657415/6e16dfaef8
   * Tags Video: https://vimeo.com/724658005/17d6021450
